@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="shadow-md">
+        <!-- ... [পুরোনো ন্যাভবার কোড একই আছে] ... -->
+
+        <div class="bg-black">
+            <div class="bg-black max-w-7xl mx-auto px-2 sm:px-2 md:px-0 lg:px-0 xl:px-0 2xl:px-0">
+                <div class="flex justify-between sm:px-2 md:space-x-2 items-center h-16">
+                    <!-- Menu Button (for Mobile) -->
+                    <button id="menu-toggle" class="md:hidden text-black focus:outline-none">
+                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Logo (Hidden on Mobile, Visible on Tablets and Larger) -->
+                    <a href="/" class="hidden md:flex text-2xl font-bold justify-start text-blue-600">
+                        <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" class="h-10">
+                    </a>
+
+                    <!-- Search Bar (Adjust Width for Tablet) -->
+                    <div class="flex items-center space-x-2 lg:ml-[70px] md:mr-auto">
+                        <div class="relative flex-grow">
+                            <input type="text" placeholder="Search Product.."
+                                class="w-full sm:w-48 md:w-80 lg:w-96 h-11 px-4 pr-10 rounded-full bg-white focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Right Section (Cart Icon for Mobile and Tablet) -->
+                    <div class="flex items-center my-6">
+                        <div class="sm:flex md:hidden  rounded-full p-2">
+                            <a href="#" id="cart-toggle" class="text-red-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-7 h-7">
+                                    <path fill-rule="evenodd"
+                                        d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Section (Visible on Tablets and Larger) -->
+                    <div class="hidden md:flex md:space-x-4 lg:space-x-6 items-center text-white">
+                        <div class="flex flex-col items-center cursor-pointer hover:text-red-500">
+                            <span class="font-semibold">Offers</span>
+                            <span class="text-xs text-gray-400">Latest Offers</span>
+                        </div>
+
+                        <div class="w-px h-8 bg-gray-600"></div>
+
+                        <div class="hidden lg:flex flex-col items-center cursor-pointer hover:text-red-500">
+                            <span class="font-semibold">Thunder Deals</span>
+                            <span class="text-xs text-gray-400">Special Deals</span>
+                        </div>
+
+                        <div class="hidden lg:w-px h-8 bg-gray-600"></div>
+
+                        <div class="flex flex-col items-center cursor-pointer hover:text-red-500">
+                            <span class="font-semibold">Account</span>
+                            <span class="text-xs text-gray-400">Register or Login</span>
+                        </div>
+
+                        <a href="/pc_builder">
+                            <button
+                                class="bg-gradient-to-r from-gray-500 to-red-500 hover:from-red-500 hover:to-gray-500 text-white font-bold rounded-lg px-6 py-2 md:px-10 md:py-1 lg:py-2 transition hover:scale-105">
+                                PC Builder
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main Menu (Single Structure for Both Desktop & Mobile) -->
+        <div id="menu"
+            class="fixed max-w-7xl mx-auto top-0 left-0 h-full w-0 bg-white overflow-x-hidden transition-width duration-300 md:block md:relative md:h-auto md:w-auto md:bg-transparent md:overflow-visible md:transition-none md:duration-0">
+            <div class="flex justify-between px-5 py-5 bg-black text-white md:hidden">
+                <h1 class="font-bold uppercase">Menu</h1>
+                <button id="menu-close" class="text-white font-bold">✕</button>
+            </div>
+            <ul class="md:flex md:flex-wrap lg:flex px-4 md:px-0 bg-white border-b border-gray-200 ">
+                <!-- Categories with Multilevel Dropdown -->
+
+
+                <li><a href="/" class="block px-4 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Home</a>
+                </li>
+
+                <li class="relative group">
+                    <button
+                        class="menu-item flex justify-between w-full md:w-auto px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">
+                        Categories
+                        <span class="md:hidden">+</span>
+                    </button>
+
+
+                    <!-- First Level Dropdown -->
+                    <ul
+                        class="submenu hidden md:absolute md:left-0 md:top-full md:bg-white md:border md:shadow-lg w-full md:w-48 md:group-hover:block md:transition md:duration-300">
+                        <li class="relative group/submenu pl-4 md:pl-0 lg:pl-0">
+                            <button
+                                class="submenu-item flex justify-between w-full px-4 py-2 text-sm font-semibold sm:ml-4 md:ml-0 lg:ml-0 xl:ml-0 2xl:ml-0 hover:bg-gray-100">
+                                Electronics
+                                <span class="">+</span>
+                            </button>
+                            <!-- Second Level Dropdown -->
+                            <ul
+                                class="nested-submenu hidden bg-gray-50 md:absolute md:left-full md:top-0 md:bg-white md:shadow-lg w-48 md:group-hover/submenu:block md:transition md:duration-300">
+                                <li class="pl-4 md:pl-0 lg:pl-0"><a href="#"
+                                        class="block px-4 py-2 text-sm font-semibold hover:bg-gray-100">Laptops</a></li>
+                                <li class="pl-4 md:pl-0 lg:pl-0"><a href="#"
+                                        class="block px-4 py-2 text-sm font-semibold hover:bg-gray-100">Phones</a></li>
+                                <li class="pl-4 md:pl-0 lg:pl-0"><a href="#"
+                                        class="block px-4 py-2 text-sm font-semibold hover:bg-gray-100">Accessories</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#" class="block px-4 py-2 text-sm font-semibold hover:bg-gray-100">Clothing</a>
+                        </li>
+                        <li><a href="#" class="block px-4 py-2 text-sm font-semibold hover:bg-gray-100">Accessories</a>
+                        </li>
+                        <li><a href="#" class="block px-2 py-2 text-sm font-semibold hover:bg-gray-100">Clothing</a>
+                        </li>
+                        <li><a href="#" class="block px-4 py-2 text-sm font-semibold hover:bg-gray-100">Accessories</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/all_offer_page"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">All Offer</a>
+                </li>
+                <li><a href="/boshonto"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Boshonto
+                        Deals</a>
+                </li>
+
+                <li><a href="/offer_upcoming_page"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Upcomming
+                        Deals</a>
+                </li>
+
+                <li><a href="/offer_start_page"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Offer Start
+                        Page</a>
+                </li>
+
+                <li><a href="/product_details_page"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Product Details
+                        Page</a></li>
+
+                <li><a href="/compare"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Compare</a></li>
+
+                <li><a href="/pc_builder_chose"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">PC Builder
+                        Chose</a>
+                </li>
+
+                <li><a href="/add_to_cart"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Add To Cart</a>
+                </li>
+
+                <li>
+                    <a href="/check_out"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Check Out
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/about"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">About
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/blog"
+                        class="block px-2 py-2 text-sm text-black md:hover:text-blue-600 font-semibold">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer"
+        class="fixed top-0 right-0 h-full w-0 bg-white overflow-x-hidden transition-width duration-300 md:w-1/4">
+        <!-- ... [পুরোনো কার্ট ড্রয়ার কোড একই আছে] ... -->
+
+        <section class="w-full h-full overflow-auto">
+            <!-- Cart Header -->
+            <div class="flex justify-between px-5 py-5 bg-black text-white">
+                <h1 class="font-bold uppercase">Your Cart</h1>
+                <button id="cart-close" class="text-white font-bold">✕</button>
+            </div>
+            <!-- Cart Items -->
+            <!-- Monitor -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/m22f-47x47.jpg" alt="Monitor" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">HP M22f 22" FHD IPS Monitor</p>
+                    <span class="font-semibold">12,300৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">12,300৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- Motherboard -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/tuf-gaming-a520m-plus-ii-01-47x47.webp" alt="Motherboard" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">Asus TUF GAMING A520M-PLUS II AMD AM4 microATX Motherboard</p>
+                    <span class="font-semibold">12,300৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">12,300৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- Motherboard -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/tuf-gaming-a520m-plus-ii-01-47x47.webp" alt="Motherboard" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">Asus TUF GAMING A520M-PLUS II AMD AM4 microATX Motherboard</p>
+                    <span class="font-semibold">12,300৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">12,300৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- Motherboard -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/tuf-gaming-a520m-plus-ii-01-47x47.webp" alt="Motherboard" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">Asus TUF GAMING A520M-PLUS II AMD AM4 microATX Motherboard</p>
+                    <span class="font-semibold">12,300৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">12,300৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- Processor -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/5600x-001-47x47.jpg" alt="Processor" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">AMD Ryzen 5 5600 Processor</p>
+                    <span class="font-semibold">10,200</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">10,200</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- Power Supply -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/csk-450-bronze-01-47x47.jpg" alt="Power Supply" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">Antec CUPRUM STRIKE CSK 450W 80 Plus Bronze Power Supply</p>
+                    <span class="font-semibold">4,700৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">4,700৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- RAM -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/VENG_LPX_BLK_01-47x47.png" alt="RAM" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">Corsair Vengeance LPX 8GB 3200MHz DDR4 Desktop RAM</p>
+                    <span class="font-semibold">2,250৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">2,250৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- SSD -->
+            <div class="flex justify-around px-2 py-2 border-b">
+                <div class="image">
+                    <img src="image/ex900-plus-256gb-01-47x47.webp" alt="SSD" class="pr-2">
+                </div>
+                <div class="info text-left w-56">
+                    <p class="text-sm py-1">HP EX900 PLUS 256GB M.2 PCIe NVMe Internal SSD</p>
+                    <span class="font-semibold">3,200৳</span>
+                    <button class="pl-2 text-gray-500 text-sm px-2 font-semibold">✕</button>
+                    <span class="font-semibold">1</span>
+                    <span class="px-2 font-semibold">=</span>
+                    <span class="font-semibold">3,200৳</span>
+                </div>
+                <div class="remove">
+                    <button class="pl-2 text-red-500">✕</button>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="footer fixed bottom-0 w-full bg-white">
+                <!-- Promotion Code -->
+                <div class="flex p-2 bg-[#F5F6FC]">
+                    <label for="promo-code"></label>
+                    <input type="text" id="promo-code" placeholder="Promo Code"
+                        class="px-2 py-1 w-72 lg:w-56 outline-none text-sm">
+                    <button class="text-black bg-white mx-auto px-2 text-sm">Apply</button>
+                </div>
+                <!-- Total -->
+                <div class="flex items-center justify-end">
+                    <div class="text-right w-full">
+                        <p class="text-black text-sm sm:text-sm border-b pb-2 pt-2">Sub-Total :<span
+                                class="pl-20 pr-4 font-bold">44,950৳</span></p>
+                        <p class="text-black text-sm sm:text-sm border-b pb-2 pt-2">Total :<span
+                                class="pl-20 pr-4 font-bold">44,950৳</span></p>
+                    </div>
+                </div>
+                <button
+                    class="text-white bg-[#ef4a23] text-sm font-semibold w-full mx-auto py-2 hover:bg-[#b72907] transition duration-700 ease-in-out">Checkout</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ... [পুরোনো জাভাস্ক্রিপ্ট কোড একই আছে] ...
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ensure cart drawer is closed on page load
+            const cartDrawerElement = document.getElementById("cart-drawer");
+            cartDrawerElement.style.width = "0";
+            // Toggle Main Menu for Mobile
+            const menuToggle = document.getElementById("menu-toggle");
+            const menu = document.getElementById("menu");
+            const menuClose = document.getElementById("menu-close");
+
+            menuToggle.addEventListener("click", function () {
+                if (menu.style.width === "0px" || menu.style.width === "") {
+                    menu.style.width = "83%";
+                    cartDrawerElement.style.width = "0"; // Close cart drawer if open
+                } else {
+                    menu.style.width = "0";
+                }
+            });
+
+            menuClose.addEventListener("click", function () {
+                menu.style.width = "0";
+            });
+
+            // Toggle Cart Drawer
+            const cartToggle = document.getElementById("cart-toggle");
+            const cartDrawer = document.getElementById("cart-drawer");
+            const cartClose = document.getElementById("cart-close");
+
+            cartToggle.addEventListener("click", function () {
+                if (cartDrawerElement.style.width === "0px" || cartDrawerElement.style.width === "") {
+                    cartDrawerElement.style.width = window.innerWidth >= 768 ? "25%" : "85%";
+                    if (window.innerWidth < 768) {
+                        menu.style.width = "0"; // Close menu if open on mobile
+                    }
+                } else {
+                    cartDrawer.style.width = "0";
+                }
+            });
+
+            cartClose.addEventListener("click", function () {
+                cartDrawer.style.width = "0";
+            });
+
+            // Toggle Submenus for Mobile (First & Second Level)
+            document.querySelectorAll(".menu-item, .submenu-item").forEach(item => {
+                item.addEventListener("click", function (e) {
+                    if (window.innerWidth < 768) { // Only apply on mobile
+                        const submenu = this.nextElementSibling;
+                        if (submenu && (submenu.classList.contains("submenu") || submenu.classList
+                            .contains("nested-submenu"))) {
+                            e.preventDefault(); // Prevent page jump
+                            submenu.classList.toggle("hidden");
+                        }
+                    }
+                });
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
